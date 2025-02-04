@@ -1,216 +1,132 @@
 # Data Science Docker Environments
 
-This repository contains Docker environments for data science work, optimized for both CPU and GPU usage.
+[![Docker Pulls](https://img.shields.io/docker/pulls/bhumukulrajds/datasci-cpu.svg)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/)
 
-## 📂 Repository Structure
+A collection of Docker environments for data science and machine learning tasks, optimized for both CPU and GPU usage.
 
-```
-.
-├── v1/                     # Original version
-│   ├── datasci_cpu/
-│   │   ├── Dockerfile.cpu
-│   │   └── PREVIEW.md
-│   └── datasci_gpu/
-│       ├── Dockerfile.gpu
-│       └── PREVIEW_GPU.md
-├── v2/                     # Enhanced version
-│   ├── datasci_cpu/
-│   │   ├── Dockerfile.cpu
-│   │   └── PREVIEW.md
-│   └── datasci_gpu/
-│       ├── Dockerfile.gpu
-│       └── PREVIEW_GPU.md
-└── README.md
-```
+## 🌟 Quick Links
 
-## 🔄 Version Information
+### CPU Version
+- [Version 2.0 (Latest)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=2.0) - Enhanced features, security, and ML packages
+- [Version 1.0](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=1.0) - Lightweight and minimal
 
-### V1 (Original)
-- Basic data science environment
-- Python 3.9 for CPU version
-- Python 3.10 with CUDA 11.8 for GPU version
-- Essential ML/DL packages
-
-### V2 (Enhanced)
-- Improved security features
-- Additional optimization tools
-- Enhanced monitoring capabilities
-- Extended ML/DL framework support
+### Documentation
+- [Version Comparison](VERSIONS.md) - Detailed comparison of features and sizes
+- [CPU v2.0 Documentation](v2/datasci_cpu/PREVIEW.md) - Latest CPU version details
+- [CPU v1.0 Documentation](v1/datasci_cpu/PREVIEW.md) - Original CPU version details
 
 ## 🚀 Quick Start
 
-### Using V1 (Original Version)
+### Latest Version (2.0)
 ```bash
-# CPU Version
-docker build -f v1/datasci_cpu/Dockerfile.cpu -t datasci-cpu:v1 .
-docker run -it -p 8888:8888 -v $(pwd):/workspace datasci-cpu:v1
+# Pull the image
+docker pull bhumukulrajds/datasci-cpu:2.0
 
-# GPU Version
-docker build -f v1/datasci_gpu/Dockerfile.gpu -t datasci-gpu:v1 .
-docker run --gpus all -it -p 8888:8888 -v $(pwd):/workspace datasci-gpu:v1
+# Run with security (recommended)
+docker run -it -p 8888:8888 \
+  -v $(pwd):/workspace \
+  -e JUPYTER_TOKEN="your_secret_token" \
+  bhumukulrajds/datasci-cpu:2.0
 ```
 
-### Using V2 (Enhanced Version)
+### Minimal Version (1.0)
 ```bash
-# CPU Version
-docker build -f v2/datasci_cpu/Dockerfile.cpu -t datasci-cpu:v2 .
-docker run -it -p 8888:8888 -v $(pwd):/workspace datasci-cpu:v2
+# Pull the image
+docker pull bhumukulrajds/datasci-cpu:1.0
 
-# GPU Version
-docker build -f v2/datasci_gpu/Dockerfile.gpu -t datasci-gpu:v2 .
-docker run --gpus all -it -p 8888:8888 -v $(pwd):/workspace datasci-gpu:v2
+# Run the container
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 ```
 
-## 🛠️ Building Images
+## 📦 Repository Structure
 
-### Basic Build
-```bash
-# CPU Version
-docker build -f datasci_cpu/Dockerfile.cpu -t datasci-cpu .
-
-# GPU Version
-docker build -f datasci_gpu/Dockerfile.gpu -t datasci-gpu .
+```
+.
+├── v1/
+│   └── datasci_cpu/
+│       ├── Dockerfile.cpu     # Version 1.0 Dockerfile
+│       └── PREVIEW.md         # Version 1.0 Documentation
+├── v2/
+│   └── datasci_cpu/
+│       ├── Dockerfile.cpu     # Version 2.0 Dockerfile
+│       ├── requirements.txt   # Pinned package versions
+│       └── PREVIEW.md         # Version 2.0 Documentation
+├── VERSIONS.md               # Version comparison
+└── README.md                # This file
 ```
 
-### Version Tagging
-```bash
-# CPU Version
-docker build -f datasci_cpu/Dockerfile.cpu -t datasci-cpu:1.0 .
-docker tag datasci-cpu:1.0 datasci-cpu:latest
+## 🔄 Version Overview
 
-# GPU Version
-docker build -f datasci_gpu/Dockerfile.gpu -t datasci-gpu:1.0 .
-docker tag datasci-gpu:1.0 datasci-gpu:latest
+### Version 2.0 (Latest - 1.42GB)
+- Multi-stage build for optimization
+- Enhanced security features
+- Performance packages (Numba, Dask)
+- Advanced ML packages (LightGBM, XGBoost)
+- Resource monitoring
+- Container healthcheck
+- Version-pinned dependencies
+
+### Version 1.0 (Minimal - 775MB)
+- Single-stage build
+- Basic data science packages
+- Simple setup
+- Minimal footprint
+- Core ML capabilities
+
+## 💻 Usage Examples
+
+### Basic Usage
+```bash
+# Mount current directory and start JupyterLab
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:2.0
 ```
 
-## 📤 Uploading to Docker Hub
-
-1. **Login to Docker Hub**
+### Resource-Limited Usage
 ```bash
-docker login
+# Run with CPU and memory limits
+docker run -it --cpus=4 --memory=8g \
+  -p 8888:8888 -v $(pwd):/workspace \
+  bhumukulrajds/datasci-cpu:2.0
 ```
 
-2. **Tag Images with Your Username**
+### Secure Usage
 ```bash
-# CPU Version
-docker tag datasci-cpu YOUR_USERNAME/datasci-cpu:latest
-docker tag datasci-cpu YOUR_USERNAME/datasci-cpu:1.0
-
-# GPU Version
-docker tag datasci-gpu YOUR_USERNAME/datasci-gpu:latest
-docker tag datasci-gpu YOUR_USERNAME/datasci-gpu:1.0
+# Run with authentication
+docker run -it -p 8888:8888 \
+  -v $(pwd):/workspace \
+  -e JUPYTER_TOKEN="your_secret_token" \
+  bhumukulrajds/datasci-cpu:2.0
 ```
 
-3. **Push Images**
-```bash
-# CPU Version
-docker push YOUR_USERNAME/datasci-cpu:latest
-docker push YOUR_USERNAME/datasci-cpu:1.0
+## 🛠️ Development
 
-# GPU Version
-docker push YOUR_USERNAME/datasci-gpu:latest
-docker push YOUR_USERNAME/datasci-gpu:1.0
+### Building Images
+```bash
+# Build Version 2.0
+cd v2/datasci_cpu
+docker build -f Dockerfile.cpu -t datasci-cpu:2.0 .
+
+# Build Version 1.0
+cd v1/datasci_cpu
+docker build -f Dockerfile.cpu -t datasci-cpu:1.0 .
 ```
 
-## 📥 Pulling Images
+### Contributing
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-```bash
-# CPU Version
-docker pull YOUR_USERNAME/datasci-cpu:latest
+## 📝 Notes
+- Choose version based on your needs (see [VERSIONS.md](VERSIONS.md))
+- Version 2.0 recommended for production use
+- Version 1.0 ideal for development/learning
 
-# GPU Version
-docker pull YOUR_USERNAME/datasci-gpu:latest
-```
+## 🔗 Links
+- [Docker Hub Repository](https://hub.docker.com/r/bhumukulrajds/datasci-cpu)
+- [GitHub Repository](https://github.com/bhumukul-raj/docker-repo-info)
+- [Version Comparison](VERSIONS.md)
 
-## 🔄 Version Management
-
-### Tagging Conventions
-- `latest`: Most recent stable version
-- `x.y`: Major.Minor version (e.g., 1.0, 1.1)
-- `x.y.z`: Major.Minor.Patch version (e.g., 1.0.1)
-
-### Creating New Versions
-```bash
-# Create new version
-docker build -f Dockerfile.cpu -t YOUR_USERNAME/datasci-cpu:1.1 .
-docker tag YOUR_USERNAME/datasci-cpu:1.1 YOUR_USERNAME/datasci-cpu:latest
-docker push YOUR_USERNAME/datasci-cpu:1.1
-docker push YOUR_USERNAME/datasci-cpu:latest
-```
-
-## 🔧 Common Operations
-
-### Container Management
-```bash
-# List running containers
-docker ps
-
-# Stop container
-docker stop CONTAINER_ID
-
-# Remove container
-docker rm CONTAINER_ID
-```
-
-### Image Management
-```bash
-# List images
-docker images
-
-# Remove image
-docker rmi IMAGE_ID
-
-# Clean unused images
-docker image prune
-```
-
-### Data Persistence
-```bash
-# Mount current directory
-docker run -v $(pwd):/workspace ...
-
-# Mount specific directory
-docker run -v /path/to/data:/workspace/data ...
-```
-
-## ⚠️ Important Notes
-
-1. **GPU Requirements**
-   - NVIDIA GPU
-   - NVIDIA Driver installed
-   - NVIDIA Container Toolkit (nvidia-docker2)
-   - Docker 19.03+
-
-2. **Port Usage**
-   - Default JupyterLab port: 8888
-   - Change with: `-p NEW_PORT:8888`
-
-3. **Memory Management**
-   - CPU: Set with `--memory=4g`
-   - GPU: Monitor with `nvidia-smi`
-
-## 🔍 Troubleshooting
-
-1. **Port Already in Use**
-```bash
-# Use different port
-docker run -p 8889:8888 ...
-```
-
-2. **GPU Not Detected**
-```bash
-# Check NVIDIA drivers
-nvidia-smi
-
-# Verify docker GPU support
-docker run --gpus all nvidia/cuda:11.8.0-base-ubuntu20.04 nvidia-smi
-```
-
-3. **Permission Issues**
-```bash
-# Run with sudo
-sudo docker ...
-
-# Or add user to docker group
-sudo usermod -aG docker $USER
-```
+## 📜 License
+MIT License - See [LICENSE](LICENSE) for details
