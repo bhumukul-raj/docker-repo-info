@@ -1,0 +1,31 @@
+# Use slim Python image for minimal size
+FROM python:3.9-slim
+
+# Install essential system packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    git \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Install core packages for CPU-based data science
+RUN pip install --no-cache-dir \
+    numpy \
+    pandas \
+    scikit-learn \
+    matplotlib \
+    seaborn \
+    jupyterlab \
+    ipywidgets \
+    && rm -rf ~/.cache/pip
+
+# Set up workspace and configuration
+WORKDIR /workspace
+
+# Configure JupyterLab
+RUN mkdir -p /root/.jupyter && \
+    echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.password = ''" >> /root/.jupyter/jupyter_notebook_config.py
+
+# Start JupyterLab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"] 
