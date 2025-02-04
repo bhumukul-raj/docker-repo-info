@@ -109,12 +109,12 @@ docker run -it -p 8888:8888 \
 - [Version 2.0 Image](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=2.0)
 
 ### GitHub Documentation
-- [Version 1.0 Documentation](https://github.com/bhumukulraj/docker-repo-info/blob/main/v1/datasci_cpu/PREVIEW.md)
-- [Version 2.0 Documentation](https://github.com/bhumukulraj/docker-repo-info/blob/main/v2/datasci_cpu/PREVIEW.md)
-- [Version Comparison](https://github.com/bhumukulraj/docker-repo-info/blob/main/VERSIONS.md)
+- [Version 1.0 Documentation](https://github.com/bhumukul-raj/docker-repo-info/blob/main/v1/datasci_cpu/PREVIEW.md)
+- [Version 2.0 Documentation](https://github.com/bhumukul-raj/docker-repo-info/blob/main/v2/datasci_cpu/PREVIEW.md)
+- [Version Comparison](https://github.com/bhumukul-raj/docker-repo-info/blob/main/VERSIONS.md)
 
 ### Repository
-- [GitHub Repository](https://github.com/bhumukulraj/docker-repo-info)
+- [GitHub Repository](https://github.com/bhumukul-raj/docker-repo-info)
   - Contains all Dockerfiles
   - Full documentation
   - Version history
