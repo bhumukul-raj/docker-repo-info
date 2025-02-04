@@ -6,33 +6,59 @@ This repository contains Docker environments for data science work, optimized fo
 
 ```
 .
-├── datasci_cpu/
-│   ├── Dockerfile.cpu
-│   └── PREVIEW.md
-├── datasci_gpu/
-│   ├── Dockerfile.gpu
-│   └── PREVIEW_GPU.md
+├── v1/                     # Original version
+│   ├── datasci_cpu/
+│   │   ├── Dockerfile.cpu
+│   │   └── PREVIEW.md
+│   └── datasci_gpu/
+│       ├── Dockerfile.gpu
+│       └── PREVIEW_GPU.md
+├── v2/                     # Enhanced version
+│   ├── datasci_cpu/
+│   │   ├── Dockerfile.cpu
+│   │   └── PREVIEW.md
+│   └── datasci_gpu/
+│       ├── Dockerfile.gpu
+│       └── PREVIEW_GPU.md
 └── README.md
 ```
 
+## 🔄 Version Information
+
+### V1 (Original)
+- Basic data science environment
+- Python 3.9 for CPU version
+- Python 3.10 with CUDA 11.8 for GPU version
+- Essential ML/DL packages
+
+### V2 (Enhanced)
+- Improved security features
+- Additional optimization tools
+- Enhanced monitoring capabilities
+- Extended ML/DL framework support
+
 ## 🚀 Quick Start
 
-### CPU Version (Minimal ~2GB)
+### Using V1 (Original Version)
 ```bash
-# Build CPU image
-docker build -f datasci_cpu/Dockerfile.cpu -t datasci-cpu .
+# CPU Version
+docker build -f v1/datasci_cpu/Dockerfile.cpu -t datasci-cpu:v1 .
+docker run -it -p 8888:8888 -v $(pwd):/workspace datasci-cpu:v1
 
-# Run CPU container
-docker run -it -p 8888:8888 -v $(pwd):/workspace datasci-cpu
+# GPU Version
+docker build -f v1/datasci_gpu/Dockerfile.gpu -t datasci-gpu:v1 .
+docker run --gpus all -it -p 8888:8888 -v $(pwd):/workspace datasci-gpu:v1
 ```
 
-### GPU Version (CUDA-enabled ~6.5GB)
+### Using V2 (Enhanced Version)
 ```bash
-# Build GPU image
-docker build -f datasci_gpu/Dockerfile.gpu -t datasci-gpu .
+# CPU Version
+docker build -f v2/datasci_cpu/Dockerfile.cpu -t datasci-cpu:v2 .
+docker run -it -p 8888:8888 -v $(pwd):/workspace datasci-cpu:v2
 
-# Run GPU container
-docker run --gpus all -it -p 8888:8888 -v $(pwd):/workspace datasci-gpu
+# GPU Version
+docker build -f v2/datasci_gpu/Dockerfile.gpu -t datasci-gpu:v2 .
+docker run --gpus all -it -p 8888:8888 -v $(pwd):/workspace datasci-gpu:v2
 ```
 
 ## 🛠️ Building Images
@@ -188,14 +214,3 @@ sudo docker ...
 # Or add user to docker group
 sudo usermod -aG docker $USER
 ```
-
-## 📚 Additional Resources
-
-- [Docker Documentation](https://docs.docker.com/)
-- [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker)
-- [Docker Hub](https://hub.docker.com/)
-- [JupyterLab Documentation](https://jupyterlab.readthedocs.io/)
-
-## 📝 License
-
-MIT License - Feel free to use and modify for your needs. 

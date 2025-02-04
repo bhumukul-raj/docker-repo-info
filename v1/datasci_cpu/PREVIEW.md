@@ -1,24 +1,26 @@
-# Data Science CPU Environment
+# Data Science CPU Environment v1.0
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/bhumukulrajds/datasci-cpu.svg)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/)
 
-A lightweight Docker environment for data science and machine learning tasks, optimized for CPU usage.
+A lightweight Docker environment for data science and machine learning tasks, optimized for CPU usage. Version 1.0 provides essential data science tools with minimal footprint.
 
 ## 🚀 Quick Start
 
 ```bash
-# Pull the image
-docker pull bhumukulrajds/datasci-cpu:latest
+# Pull the image (775MB)
+docker pull bhumukulrajds/datasci-cpu:1.0
 
 # Run the container
-docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 ```
 
 ## 📦 What's Included
 
 ### Base Image
 - Python 3.9 (slim version)
-- Essential system utilities (wget, git)
+- Essential system utilities:
+  - wget
+  - git
 
 ### Python Packages
 - **Data Processing**: 
@@ -37,19 +39,19 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu
 ### Basic Usage
 ```bash
 # Run with current directory mounted
-docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 
 # Run with custom port
-docker run -it -p 9999:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu
+docker run -it -p 9999:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 
 # Run with specific name
-docker run -it --name my-ds-env -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu
+docker run -it --name my-ds-env -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 ```
 
 ### Accessing JupyterLab
 1. Open your browser
 2. Navigate to `http://localhost:8888`
-3. Start coding!
+3. Start coding! (No authentication required)
 
 ## 📊 Example Code
 
@@ -97,22 +99,24 @@ pip install package_name
 - Working Directory: /workspace
 - Exposed Port: 8888
 - Default Command: JupyterLab
+- Image Size: ~775MB
 
 ### Resource Usage
 - Minimal installation size
 - Optimized for CPU-based computations
 - Low memory footprint
+- Single-stage build
 
 ## 📝 Notes
 - No password/token required for JupyterLab (development use only)
 - All packages are installed via pip for minimal size
 - Workspace directory is mounted for persistent storage
+- Simple and straightforward setup
 
-## 🔄 Updates
-Check for updates regularly:
-```bash
-docker pull bhumukulrajds/datasci-cpu:latest
-```
+## 🔄 Version Information
+- Current Version: 1.0
+- Image Size: 775MB
+- For newer features, check version 2.0
 
 ## 🤝 Contributing
 Feel free to open issues or submit pull requests on the GitHub repository.
