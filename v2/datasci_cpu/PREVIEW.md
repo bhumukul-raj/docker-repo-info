@@ -2,7 +2,7 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/bhumukulrajds/datasci-cpu.svg)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/)
 
-A lightweight Docker environment for data science and machine learning tasks, optimized for CPU usage. Version 2.0 includes enhanced security, performance optimizations, and additional ML packages.
+A comprehensive Docker environment for data science and machine learning tasks, optimized for CPU usage. Version 2.0 includes enhanced security, Git integration, performance optimizations, and additional ML packages.
 
 ## 🚀 Quick Start
 
@@ -10,14 +10,15 @@ A lightweight Docker environment for data science and machine learning tasks, op
 # Pull the image
 docker pull bhumukulrajds/datasci-cpu:2.0
 
-# Run with basic configuration
+# Basic run (not recommended for production)
 docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:2.0
 
-# Run with security tokens (recommended)
+# Recommended run with security and Git integration
 docker run -it -p 8888:8888 \
   -v $(pwd):/workspace \
+  -v ~/.ssh:/root/.ssh:ro \
+  -v ~/.gitconfig:/etc/gitconfig.d/.gitconfig:ro \
   -e JUPYTER_TOKEN="your_secret_token" \
-  -e JUPYTER_PASSWORD="your_password" \
   bhumukulrajds/datasci-cpu:2.0
 ```
 
@@ -27,9 +28,9 @@ docker run -it -p 8888:8888 \
 - Python 3.9 (slim version)
 - Multi-stage build for reduced image size
 - Virtual environment for better package isolation
-- Essential system utilities (wget, git)
+- Node.js 18.x for JupyterLab extensions
 
-### Core Data Science Packages
+### Core Data Science Packages (Pinned Versions)
 - **Data Processing**: 
   - NumPy (1.24.3)
   - Pandas (2.0.3)
@@ -48,10 +49,12 @@ docker run -it -p 8888:8888 \
 ### Development Environment
 - JupyterLab (4.0.2)
 - IPython Widgets (8.0.7)
+- Git Integration with JupyterLab
+- SSH and Git configuration support
 
 ### Monitoring Tools
 - Jupyter Resource Usage (0.7.2)
-- psutil (5.9.5)
+- System Monitoring (psutil 5.9.5)
 
 ## 💻 Usage Examples
 
@@ -67,62 +70,46 @@ docker run -it -p 9999:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:2.0
 docker run -it --cpus=4 --memory=8g -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:2.0
 ```
 
-### Secure Usage
+### Secure Usage with Git Integration
 ```bash
-# Run with authentication
+# Run with Git configuration and SSH keys
 docker run -it -p 8888:8888 \
   -v $(pwd):/workspace \
+  -v ~/.ssh:/root/.ssh:ro \
+  -v ~/.gitconfig:/etc/gitconfig.d/.gitconfig:ro \
   -e JUPYTER_TOKEN="your_secure_token" \
+  bhumukulrajds/datasci-cpu:2.0
+
+# For Windows users (PowerShell)
+docker run -it -p 8888:8888 `
+  -v ${PWD}:/workspace `
+  -v $HOME/.ssh:/root/.ssh:ro `
+  -v $HOME/.gitconfig:/etc/gitconfig.d/.gitconfig:ro `
+  -e JUPYTER_TOKEN="your_secure_token" `
   bhumukulrajds/datasci-cpu:2.0
 ```
 
-### Accessing JupyterLab
-1. Open your browser
-2. Navigate to `http://localhost:8888`
-3. Enter token/password if configured
-4. Start coding!
+## 🔧 Features
 
-## 🔧 Performance Features
+### Git Integration
+- Full Git support in JupyterLab interface
+- Clone, commit, push, and pull directly from JupyterLab
+- Visual diff viewer and merge conflict resolution
+- SSH key and Git configuration support
+- Credential caching for convenience
 
-### Parallel Processing with Dask
-```python
-import dask.dataframe as dd
+### Security Features
+- Configurable JupyterLab authentication
+- Environment variable based configuration
+- Read-only mounting of sensitive files
+- Isolated Python environment
+- Healthcheck implementation
 
-# Create Dask DataFrame
-ddf = dd.read_csv('large_file.csv')
-
-# Parallel computations
-result = ddf.groupby('column').mean().compute()
-```
-
-### CPU Optimization with Numba
-```python
-from numba import jit
-import numpy as np
-
-@jit(nopython=True)
-def fast_computation(x):
-    return np.sum(x ** 2)
-
-# Will run much faster than pure Python
-result = fast_computation(np.array([1, 2, 3, 4, 5]))
-```
-
-### Efficient ML with LightGBM
-```python
-import lightgbm as lgb
-
-# Create dataset
-train_data = lgb.Dataset('train.csv')
-
-# Train model efficiently
-params = {
-    'objective': 'binary',
-    'metric': 'binary_logloss',
-    'boosting_type': 'gbdt'
-}
-model = lgb.train(params, train_data)
-```
+### Performance Features
+- Multi-stage build for smaller image size
+- Optimized package versions
+- Support for parallel processing
+- Resource monitoring and management
 
 ## 🛠️ Technical Details
 
@@ -131,27 +118,63 @@ model = lgb.train(params, train_data)
 - Working Directory: /workspace
 - Exposed Port: 8888
 - Healthcheck: Enabled (30s interval)
+- Node.js: 18.x
+- Git: Latest version
 
-### Security Features
-- Configurable JupyterLab authentication
-- Environment variable based configuration
-- Isolated Python environment
+### Environment Variables
+```bash
+JUPYTER_TOKEN       # Set custom access token
+JUPYTER_PASSWORD    # Set custom password
+```
+
+### Volume Mounts
+```bash
+/workspace              # Your working directory
+/root/.ssh             # SSH keys (optional)
+/etc/gitconfig.d       # Git configuration (optional)
+```
+
+## 📝 Best Practices
+
+### Security
+- Always use JUPYTER_TOKEN in production
+- Mount SSH keys as read-only
+- Use resource limits in production
+- Regular security updates
+
+### Git Usage
+- Use SSH keys for repository access
+- Configure Git credentials properly
+- Regular commits and pushes
+- Use .gitignore for sensitive data
 
 ### Resource Management
-- Supports CPU limiting
-- Memory constraints
-- Built-in resource monitoring
+- Monitor container resource usage
+- Set appropriate CPU and memory limits
+- Use healthcheck for stability
+- Regular container updates
 
-## 📝 Notes
-- Container includes healthcheck
-- All packages have pinned versions for reproducibility
-- Workspace directory is mounted for persistent storage
-- Resource monitoring tools included
+## 🔄 Updates and Maintenance
 
-## 🔄 Updates
-Check for updates regularly:
+### Updating the Container
 ```bash
+# Pull latest version
 docker pull bhumukulrajds/datasci-cpu:latest
+
+# Remove old containers
+docker ps -a | grep datasci-cpu | awk '{print $1}' | xargs docker rm
+
+# Remove old images
+docker images | grep datasci-cpu | awk '{print $3}' | xargs docker rmi
+```
+
+### Health Monitoring
+```bash
+# Check container health
+docker inspect --format='{{.State.Health.Status}}' container_name
+
+# View container logs
+docker logs container_name
 ```
 
 ## 🤝 Contributing

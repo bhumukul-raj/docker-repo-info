@@ -7,6 +7,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     git \
     libgomp1 \
+    openssh-client \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
@@ -17,7 +21,9 @@ ENV PATH="/opt/venv/bin:$PATH"
 # Copy and install requirements with specific versions
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt && \
-    rm -rf ~/.cache/pip
+    jupyter lab build --dev-build=False --minimize=False && \
+    jupyter server extension enable --py jupyterlab_git && \
+    rm -rf ~/.cache/pip ~/.cache/yarn
 
 # Final stage
 FROM python:3.9-slim
@@ -31,11 +37,45 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     git \
     libgomp1 \
+    openssh-client \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
+    && apt-get clean \
+    && mkdir -p /root/.ssh /root/.gitconfig.d \
+    && chmod 700 /root/.ssh \
+    && git config --system credential.helper 'cache --timeout=3600' \
+    && git config --system core.editor "vim" \
+    && git config --system safe.directory "*"
 
 # Set up workspace and configuration
 WORKDIR /workspace
+RUN git config --system core.longpaths true && \
+    git config --system core.protectNTFS false && \
+    git config --system core.ignorecase false
+
+# Configure Git workspace
+ENV WORKSPACE_DIR=/workspace
+RUN echo '#!/bin/bash\n\
+cd /workspace\n\
+if [ -d .git ]; then\n\
+    repo_name=$(basename $(pwd))\n\
+    if [ "$repo_name" = "workspace" ]; then\n\
+        actual_name=$(basename $(git rev-parse --show-toplevel 2>/dev/null) || echo "docker-repo-info")\n\
+        cd .. && mv workspace $actual_name && ln -s $actual_name workspace\n\
+    fi\n\
+    git config --global --add safe.directory /workspace\n\
+    git config --global --add safe.directory "*"\n\
+fi' > /usr/local/bin/setup-workspace.sh && \
+    chmod +x /usr/local/bin/setup-workspace.sh
+
+# Configure volumes for Git
+VOLUME ["/workspace"]
+
+# Add SSH and Git config mounting points
+RUN mkdir -p /etc/gitconfig.d && chmod 755 /etc/gitconfig.d
+ENV GIT_CONFIG_GLOBAL=/etc/gitconfig.d/.gitconfig
 
 # Configure JupyterLab with environment variables for security
 ENV JUPYTER_TOKEN=${JUPYTER_TOKEN:-""}
@@ -52,5 +92,5 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 # Expose port
 EXPOSE 8888
 
-# Start JupyterLab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"] 
+# Start JupyterLab with workspace setup
+CMD ["/bin/bash", "-c", "/usr/local/bin/setup-workspace.sh && jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root"] 

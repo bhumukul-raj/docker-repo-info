@@ -19,4 +19,8 @@ xgboost==1.7.6
 
 # Optional Tools
 jupyter-resource-usage==0.7.2  # For monitoring resource usage in JupyterLab
-psutil==5.9.5  # For system monitoring 
+psutil==5.9.5  # For system monitoring
+
+# Git Integration
+jupyterlab-git==0.50.2  # Updated to match frontend version
+jupyter-server-proxy==4.1.0 
