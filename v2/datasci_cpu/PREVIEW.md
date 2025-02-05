@@ -7,11 +7,11 @@ A comprehensive Docker environment for data science and machine learning tasks, 
 ## 🔐 Current Security Token
 The current JupyterLab security token is:
 ```
-db5bd5722b1491f4a44c21b976fd9a752bb3d0b3ef4929dd
+ffc0ec74a8f942e007dd2caefbfb80c8e58395fdf2d8e4d7
 ```
 
 Access your JupyterLab instance using either:
-- Direct URL: `http://127.0.0.1:8888/lab?token=db5bd5722b1491f4a44c21b976fd9a752bb3d0b3ef4929dd`
+- Direct URL: `http://127.0.0.1:8888/lab?token=ffc0ec74a8f942e007dd2caefbfb80c8e58395fdf2d8e4d7`
 - Or visit `http://127.0.0.1:8888` and enter the token when prompted
 
 Note: This token changes each time you restart the container.
@@ -30,7 +30,7 @@ docker run -it -p 8888:8888 \
   -v $(pwd):/workspace \
   -v ~/.ssh:/root/.ssh:ro \
   -v ~/.gitconfig:/etc/gitconfig.d/.gitconfig:ro \
-  -e JUPYTER_TOKEN="your_secret_token" \
+  -e JUPYTER_TOKEN="your_secure_token" \
   bhumukulrajds/datasci-cpu:2.0
 ```
 
@@ -42,11 +42,11 @@ docker run -it -p 8888:8888 \
 - Virtual environment for better package isolation
 - Node.js 18.x for JupyterLab extensions
 
-### Core Data Science Packages (Pinned Versions)
+### Core Data Science Packages (Latest Secure Versions)
 - **Data Processing**: 
   - NumPy (1.24.3)
   - Pandas (2.0.3)
-  - Scikit-learn (1.3.2) - Updated for security patch
+  - Scikit-learn (1.4.1.post1) - Updated with security fixes
 
 ### Performance Optimization Packages
 - Numba (0.57.1) - for CPU-intensive computations
@@ -59,7 +59,7 @@ docker run -it -p 8888:8888 \
 - Seaborn (0.12.2)
 
 ### Development Environment
-- JupyterLab (4.1.2) - Updated with security fixes
+- JupyterLab (4.0.11) - Updated with security fixes
 - IPython Widgets (8.0.7)
 - Git Integration with JupyterLab
 - SSH and Git configuration support
@@ -143,7 +143,7 @@ docker run -it -p 8888:8888 `
 
 ### Environment Variables
 ```bash
-JUPYTER_TOKEN       # Set custom access token (current: 2c3bf6d948802aea5e662da4857123deeb5d4ad0bf4dd0ac)
+JUPYTER_TOKEN       # Set custom access token
 JUPYTER_PASSWORD    # Set custom password (optional)
 ```
 
