@@ -23,4 +23,4 @@ psutil==5.9.5  # For system monitoring
 
 # Git Integration
 jupyterlab-git==0.50.2
-jupyter-server-proxy==4.1.2  # Using last compatible version 
+jupyter-server-proxy==4.2.0  # Using last compatible version 
