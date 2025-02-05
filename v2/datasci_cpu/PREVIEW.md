@@ -4,6 +4,18 @@
 
 A comprehensive Docker environment for data science and machine learning tasks, optimized for CPU usage. Version 2.0 includes enhanced security, Git integration, performance optimizations, and additional ML packages.
 
+## 🔐 Current Security Token
+The current JupyterLab security token is:
+```
+2c3bf6d948802aea5e662da4857123deeb5d4ad0bf4dd0ac
+```
+
+Access your JupyterLab instance using either:
+- Direct URL: `http://127.0.0.1:8888/lab?token=2c3bf6d948802aea5e662da4857123deeb5d4ad0bf4dd0ac`
+- Or visit `http://127.0.0.1:8888` and enter the token when prompted
+
+Note: This token changes each time you restart the container.
+
 ## 🚀 Quick Start
 
 ```bash
@@ -34,7 +46,7 @@ docker run -it -p 8888:8888 \
 - **Data Processing**: 
   - NumPy (1.24.3)
   - Pandas (2.0.3)
-  - Scikit-learn (1.3.0)
+  - Scikit-learn (1.3.2) - Updated for security patch
 
 ### Performance Optimization Packages
 - Numba (0.57.1) - for CPU-intensive computations
@@ -47,10 +59,11 @@ docker run -it -p 8888:8888 \
 - Seaborn (0.12.2)
 
 ### Development Environment
-- JupyterLab (4.0.2)
+- JupyterLab (4.1.2) - Updated with security fixes
 - IPython Widgets (8.0.7)
 - Git Integration with JupyterLab
 - SSH and Git configuration support
+- Jupyter Server Proxy (4.1.2) - Updated with security fixes
 
 ### Monitoring Tools
 - Jupyter Resource Usage (0.7.2)
@@ -99,6 +112,13 @@ docker run -it -p 8888:8888 `
 - Credential caching for convenience
 
 ### Security Features
+- Token-based authentication (default)
+- Optional password-based authentication
+- Protection against XSS vulnerabilities
+- Secure WebSocket authentication
+- Protection against DOM Clobbering
+- Secured authentication and CSRF tokens
+- Protected against data leakage
 - Configurable JupyterLab authentication
 - Environment variable based configuration
 - Read-only mounting of sensitive files
@@ -123,8 +143,8 @@ docker run -it -p 8888:8888 `
 
 ### Environment Variables
 ```bash
-JUPYTER_TOKEN       # Set custom access token
-JUPYTER_PASSWORD    # Set custom password
+JUPYTER_TOKEN       # Set custom access token (current: 2c3bf6d948802aea5e662da4857123deeb5d4ad0bf4dd0ac)
+JUPYTER_PASSWORD    # Set custom password (optional)
 ```
 
 ### Volume Mounts
