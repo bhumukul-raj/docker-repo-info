@@ -7,11 +7,11 @@ A comprehensive Docker environment for data science and machine learning tasks, 
 ## 🔐 Current Security Token
 The current JupyterLab security token is:
 ```
-2c3bf6d948802aea5e662da4857123deeb5d4ad0bf4dd0ac
+db5bd5722b1491f4a44c21b976fd9a752bb3d0b3ef4929dd
 ```
 
 Access your JupyterLab instance using either:
-- Direct URL: `http://127.0.0.1:8888/lab?token=2c3bf6d948802aea5e662da4857123deeb5d4ad0bf4dd0ac`
+- Direct URL: `http://127.0.0.1:8888/lab?token=db5bd5722b1491f4a44c21b976fd9a752bb3d0b3ef4929dd`
 - Or visit `http://127.0.0.1:8888` and enter the token when prompted
 
 Note: This token changes each time you restart the container.
