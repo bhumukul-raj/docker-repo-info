@@ -7,22 +7,33 @@ A collection of Docker environments for data science and machine learning tasks,
 ## 🌟 Quick Links
 
 ### CPU Version
-- [Version 2.0 (Latest)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=2.0) - Enhanced features, security, and ML packages
+- [Version 3.0 (Latest)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=3.0) - Simplified personal use with on-demand extensions
+- [Version 2.0](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=2.0) - Enhanced features, security, and ML packages
 - [Version 1.0](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=1.0) - Lightweight and minimal
 
 ### Documentation
 - [Version Comparison](VERSIONS.md) - Detailed comparison of features and sizes
-- [CPU v2.0 Documentation](v2/datasci_cpu/PREVIEW.md) - Latest CPU version details
-- [CPU v1.0 Documentation](v1/datasci_cpu/PREVIEW.md) - Original CPU version details
+- [CPU v3.0 Documentation](v3/datasci_cpu/PREVIEW.md) - Latest personal use version
+- [CPU v2.0 Documentation](v2/datasci_cpu/PREVIEW.md) - Production version details
+- [CPU v1.0 Documentation](v1/datasci_cpu/PREVIEW.md) - Original minimal version details
 
 ## 🚀 Quick Start
 
-### Latest Version (2.0)
+### Latest Version (3.0)
+```bash
+# Pull the image
+docker pull bhumukulrajds/datasci-cpu:3.0
+
+# Run for personal use
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:3.0
+```
+
+### Production Version (2.0)
 ```bash
 # Pull the image
 docker pull bhumukulrajds/datasci-cpu:2.0
 
-# Run with security (recommended)
+# Run with security
 docker run -it -p 8888:8888 \
   -v $(pwd):/workspace \
   -e JUPYTER_TOKEN="your_secret_token" \
@@ -43,25 +54,39 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 ```
 .
 ├── v1/
-│   └── datasci_cpu/
-│       ├── Dockerfile.cpu     # Version 1.0 Dockerfile
-│       └── PREVIEW.md         # Version 1.0 Documentation
+│   └── datasci_cpu/          # Version 1.0 - Minimal
+│       ├── Dockerfile.cpu    
+│       └── PREVIEW.md        
 ├── v2/
-│   └── datasci_cpu/
-│       ├── Dockerfile.cpu     # Version 2.0 Dockerfile
-│       ├── requirements.txt   # Pinned package versions
-│       └── PREVIEW.md         # Version 2.0 Documentation
+│   └── datasci_cpu/          # Version 2.0 - Production
+│       ├── Dockerfile.cpu    
+│       ├── requirements.txt  
+│       └── PREVIEW.md        
+├── v3/
+│   └── datasci_cpu/          # Version 3.0 - Personal Use
+│       ├── Dockerfile.cpu
+│       ├── requirements.txt
+│       ├── recommended_extensions.txt
+│       └── PREVIEW.md
 ├── VERSIONS.md               # Version comparison
 └── README.md                # This file
 ```
 
 ## 🔄 Version Overview
 
-### Version 2.0 (Latest - 1.42GB)
+### Version 3.0 (Latest - 1.1GB)
+- Simplified for personal use
+- On-demand extension installation
+- Automatic Git repository recognition
+- Multi-stage build optimization
+- Core data science packages
+- No pre-installed extensions
+
+### Version 2.0 (Production - 1.42GB)
 - Multi-stage build for optimization
 - Enhanced security features
-- Performance packages (Numba, Dask)
-- Advanced ML packages (LightGBM, XGBoost)
+- Performance packages
+- Advanced ML packages
 - Resource monitoring
 - Container healthcheck
 - Version-pinned dependencies
@@ -75,33 +100,35 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 
 ## 💻 Usage Examples
 
-### Basic Usage
+### Personal Use (v3.0)
 ```bash
-# Mount current directory and start JupyterLab
-docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:2.0
+# Basic run with current directory
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:3.0
 ```
 
-### Resource-Limited Usage
+### Production Use (v2.0)
 ```bash
-# Run with CPU and memory limits
+# Run with security and resource limits
 docker run -it --cpus=4 --memory=8g \
   -p 8888:8888 -v $(pwd):/workspace \
+  -e JUPYTER_TOKEN="your_secret_token" \
   bhumukulrajds/datasci-cpu:2.0
 ```
 
-### Secure Usage
+### Development Use (v1.0)
 ```bash
-# Run with authentication
-docker run -it -p 8888:8888 \
-  -v $(pwd):/workspace \
-  -e JUPYTER_TOKEN="your_secret_token" \
-  bhumukulrajds/datasci-cpu:2.0
+# Simple run for development
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 ```
 
 ## 🛠️ Development
 
 ### Building Images
 ```bash
+# Build Version 3.0
+cd v3/datasci_cpu
+docker build -f Dockerfile.cpu -t datasci-cpu:3.0 .
+
 # Build Version 2.0
 cd v2/datasci_cpu
 docker build -f Dockerfile.cpu -t datasci-cpu:2.0 .
@@ -111,17 +138,10 @@ cd v1/datasci_cpu
 docker build -f Dockerfile.cpu -t datasci-cpu:1.0 .
 ```
 
-### Contributing
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## 📝 Notes
-- Choose version based on your needs (see [VERSIONS.md](VERSIONS.md))
-- Version 2.0 recommended for production use
-- Version 1.0 ideal for development/learning
+## 📝 Version Selection Guide
+- Version 3.0: Personal use, flexibility with extensions
+- Version 2.0: Production use, security-focused
+- Version 1.0: Learning, development, minimal needs
 
 ## 🔗 Links
 - [Docker Hub Repository](https://hub.docker.com/r/bhumukulrajds/datasci-cpu)
