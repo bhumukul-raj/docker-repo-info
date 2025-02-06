@@ -13,12 +13,13 @@
   - System utilities (vim, htop, tree)
   - Terminal enhancements with custom bashrc
   - Code formatting tools (black, isort)
-  - Scientific computing packages
-  - Security updates
+  - Scientific computing packages (scipy, statsmodels)
+  - Latest security updates
   - Multi-stage build optimization
   - Core data science packages
   - Custom shell configuration
   - Welcome message and improved UX
+  - Recommended extensions list
 
 ```bash
 # Pull Version 4.0
@@ -143,7 +144,7 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 | Scikit-learn            | Latest   | 1.3.0        | 1.4.2        | 1.4.2        |
 | Matplotlib              | Latest   | 3.7.1        | 3.7.1        | 3.7.1        |
 | Seaborn                 | Latest   | 0.12.2       | 0.12.2       | 0.12.2       |
-| JupyterLab              | Latest   | 4.0.2        | 4.1.1        | 4.1.1        |
+| JupyterLab              | Latest   | 4.0.2        | 4.0.11       | 4.0.11       |
 | IPython Widgets         | Latest   | 8.0.7        | 8.0.7        | 8.0.7        |
 | Numba                   | No       | 0.57.1       | 0.57.1       | 0.57.1       |
 | Dask                    | No       | 2023.7.1     | 2023.7.1     | 2023.7.1     |
@@ -153,6 +154,25 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 | SciPy                   | No       | No           | No           | 1.11.3       |
 | Statsmodels             | No       | No           | No           | 0.14.1       |
 | Plotly                  | No       | No           | No           | 5.18.0       |
+
+### Security Updates in v4.0
+- Using JupyterLab 4.0.11 with security patches
+  - Addresses potential HTML injection vulnerabilities
+  - Improves extension security
+- Using Scikit-learn 1.4.2 with latest security fixes
+  - Includes fixes for data leakage vulnerabilities
+  - Improves model security
+- Using Black 24.1.1 with stability improvements
+  - Includes fixes for code formatting reliability
+- Enhanced security in extension management
+  - Improved extension isolation
+  - Better dependency management
+- Added system monitoring tools
+  - Resource usage tracking
+  - Process monitoring
+- Terminal security improvements
+  - Secure bash configuration
+  - Protected environment variables
 
 ### When to Use Each Version
 

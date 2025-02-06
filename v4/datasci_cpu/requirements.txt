@@ -11,7 +11,7 @@ seaborn==0.12.2
 plotly==5.18.0
 
 # Development Environment
-jupyterlab==4.1.1
+jupyterlab==4.0.11
 ipywidgets==8.0.7
 jupyterlab-git==0.50.2
 ipython==8.18.1

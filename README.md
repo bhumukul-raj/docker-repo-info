@@ -87,10 +87,11 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 - Enhanced development tools
 - System utilities (vim, htop, tree)
 - Terminal enhancements
-- Code formatting tools
+- Code formatting tools (black, isort)
 - Scientific computing packages
-- Security updates
+- Latest security updates for JupyterLab and scikit-learn
 - Custom shell configuration
+- Improved user experience with welcome message
 
 ### Version 3.0 (1.1GB)
 - Simplified for personal use
@@ -119,7 +120,7 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 
 ### Enhanced Development (v4.0)
 ```bash
-# Run with development tools
+# Run with development tools and security updates
 docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:4.0
 ```
 
