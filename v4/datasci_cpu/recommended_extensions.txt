@@ -1,0 +1,16 @@
+# Core Extensions
+@jupyter-widgets/jupyterlab-manager  # For interactive widgets
+@jupyterlab/git  # Git integration
+@jupyterlab/toc  # Table of contents
+
+# Visualization
+jupyterlab-plotly  # Interactive plots
+@jupyterlab/drawio  # Diagrams
+
+# Code Quality
+@jupyterlab/debugger  # Python debugger
+@ryantam626/jupyterlab_code_formatter  # Code formatting
+
+# Utils
+@jupyterlab/google-drive  # Google Drive integration
+jupyterlab-system-monitor  # Resource monitoring 

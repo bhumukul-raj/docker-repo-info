@@ -1,0 +1,82 @@
+# Multi-stage build for smaller final image
+FROM python:3.9-slim as builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    git \
+    libgomp1 \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create and activate virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copy and install requirements with specific versions
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt && \
+    jupyter server extension enable --py jupyterlab_git && \
+    jupyter lab build && \
+    rm -rf ~/.cache/pip ~/.cache/yarn
+
+# Final stage
+FROM python:3.9-slim
+
+# Set timezone
+ENV TZ=UTC
+
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install runtime dependencies and tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    libgomp1 \
+    curl \
+    vim \
+    htop \
+    wget \
+    unzip \
+    tree \
+    bash-completion \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Set up workspace and Git configuration
+WORKDIR /workspace
+VOLUME ["/workspace"]
+RUN git config --system safe.directory '*' && \
+    git config --system safe.directory /workspace
+
+# Configure bash
+COPY bashrc /root/.bashrc
+
+# Copy recommended extensions list
+COPY recommended_extensions.txt /opt/
+
+# Configure JupyterLab
+RUN mkdir -p /root/.jupyter && \
+    jupyter server extension enable --py jupyterlab_git && \
+    jupyter lab build
+
+# Create welcome message script
+RUN echo '#!/bin/bash\n\
+echo "Welcome to Data Science Environment v4.0!"\n\
+echo "JupyterLab is starting at: http://127.0.0.1:8888"\n\
+echo "Available tools: vim, htop, tree, wget, unzip"\n\
+echo "Python tools: black, isort, ipython"\n\
+jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root' > /usr/local/bin/start.sh && \
+    chmod +x /usr/local/bin/start.sh
+
+# Expose port
+EXPOSE 8888
+
+# Start JupyterLab with welcome message
+CMD ["/usr/local/bin/start.sh"] 

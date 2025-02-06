@@ -7,25 +7,27 @@ A collection of Docker environments for data science and machine learning tasks,
 ## 🌟 Quick Links
 
 ### CPU Version
-- [Version 3.0 (Latest)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=3.0) - Simplified personal use with on-demand extensions
+- [Version 4.0 (Latest)](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=4.0) - Enhanced development tools and security updates
+- [Version 3.0](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=3.0) - Simplified personal use with on-demand extensions
 - [Version 2.0](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=2.0) - Enhanced features, security, and ML packages
 - [Version 1.0](https://hub.docker.com/r/bhumukulrajds/datasci-cpu/tags?name=1.0) - Lightweight and minimal
 
 ### Documentation
 - [Version Comparison](VERSIONS.md) - Detailed comparison of features and sizes
-- [CPU v3.0 Documentation](v3/datasci_cpu/PREVIEW.md) - Latest personal use version
-- [CPU v2.0 Documentation](v2/datasci_cpu/PREVIEW.md) - Production version details
-- [CPU v1.0 Documentation](v1/datasci_cpu/PREVIEW.md) - Original minimal version details
+- [CPU v4.0 Documentation](v4/datasci_cpu/PREVIEW.md) - Latest version with enhanced tools
+- [CPU v3.0 Documentation](v3/datasci_cpu/PREVIEW.md) - Personal use version
+- [CPU v2.0 Documentation](v2/datasci_cpu/PREVIEW.md) - Production version
+- [CPU v1.0 Documentation](v1/datasci_cpu/PREVIEW.md) - Minimal version
 
 ## 🚀 Quick Start
 
-### Latest Version (3.0)
+### Latest Version (4.0)
 ```bash
 # Pull the image
-docker pull bhumukulrajds/datasci-cpu:3.0
+docker pull bhumukulrajds/datasci-cpu:4.0
 
-# Run for personal use
-docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:3.0
+# Run with development tools
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:4.0
 ```
 
 ### Production Version (2.0)
@@ -68,21 +70,36 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 │       ├── requirements.txt
 │       ├── recommended_extensions.txt
 │       └── PREVIEW.md
+├── v4/
+│   └── datasci_cpu/          # Version 4.0 - Enhanced Tools
+│       ├── Dockerfile.cpu
+│       ├── requirements.txt
+│       ├── recommended_extensions.txt
+│       ├── bashrc
+│       └── PREVIEW.md
 ├── VERSIONS.md               # Version comparison
 └── README.md                # This file
 ```
 
 ## 🔄 Version Overview
 
-### Version 3.0 (Latest - 1.1GB)
+### Version 4.0 (Latest - 1.2GB)
+- Enhanced development tools
+- System utilities (vim, htop, tree)
+- Terminal enhancements
+- Code formatting tools
+- Scientific computing packages
+- Security updates
+- Custom shell configuration
+
+### Version 3.0 (1.1GB)
 - Simplified for personal use
 - On-demand extension installation
 - Automatic Git repository recognition
 - Multi-stage build optimization
 - Core data science packages
-- No pre-installed extensions
 
-### Version 2.0 (Production - 1.42GB)
+### Version 2.0 (1.42GB)
 - Multi-stage build for optimization
 - Enhanced security features
 - Performance packages
@@ -91,7 +108,7 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 - Container healthcheck
 - Version-pinned dependencies
 
-### Version 1.0 (Minimal - 775MB)
+### Version 1.0 (775MB)
 - Single-stage build
 - Basic data science packages
 - Simple setup
@@ -100,9 +117,15 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 
 ## 💻 Usage Examples
 
+### Enhanced Development (v4.0)
+```bash
+# Run with development tools
+docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:4.0
+```
+
 ### Personal Use (v3.0)
 ```bash
-# Basic run with current directory
+# Basic run with extensions support
 docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:3.0
 ```
 
@@ -125,6 +148,10 @@ docker run -it -p 8888:8888 -v $(pwd):/workspace bhumukulrajds/datasci-cpu:1.0
 
 ### Building Images
 ```bash
+# Build Version 4.0
+cd v4/datasci_cpu
+docker build -f Dockerfile.cpu -t datasci-cpu:4.0 .
+
 # Build Version 3.0
 cd v3/datasci_cpu
 docker build -f Dockerfile.cpu -t datasci-cpu:3.0 .
@@ -139,13 +166,14 @@ docker build -f Dockerfile.cpu -t datasci-cpu:1.0 .
 ```
 
 ## 📝 Version Selection Guide
+- Version 4.0: Enhanced development with full tool suite
 - Version 3.0: Personal use, flexibility with extensions
 - Version 2.0: Production use, security-focused
 - Version 1.0: Learning, development, minimal needs
 
 ## 🔗 Links
 - [Docker Hub Repository](https://hub.docker.com/r/bhumukulrajds/datasci-cpu)
-- [GitHub Repository](https://github.com/bhumukul-raj/docker-repo-info)
+- [GitHub Repository](https://github.com/bhumukulraj/docker-repo-info)
 - [Version Comparison](VERSIONS.md)
 
 ## 📜 License

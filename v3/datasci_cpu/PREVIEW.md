@@ -29,7 +29,7 @@ Access JupyterLab at: http://127.0.0.1:8888
 - **Data Processing**: 
   - NumPy (1.24.3)
   - Pandas (2.0.3)
-  - Scikit-learn (1.4.1.post1)
+  - Scikit-learn (1.4.2) - Security patched
 
 ### Visualization
 - Matplotlib (3.7.1)
@@ -40,9 +40,10 @@ Access JupyterLab at: http://127.0.0.1:8888
 - Dask (2023.7.1) - for parallel processing
 
 ### Development Environment
-- JupyterLab (4.0.11)
+- JupyterLab (4.1.1) - Security patched
 - IPython Widgets (8.0.7)
 - System Monitoring (psutil 5.9.5)
+
 
 ## 🔧 Extension Management
 

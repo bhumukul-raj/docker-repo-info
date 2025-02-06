@@ -1,0 +1,30 @@
+# Core Data Science
+numpy==1.24.3
+pandas==2.0.3
+scikit-learn==1.4.2
+scipy==1.11.3
+statsmodels==0.14.1
+
+# Visualization
+matplotlib==3.7.1
+seaborn==0.12.2
+plotly==5.18.0
+
+# Development Environment
+jupyterlab==4.1.1
+ipywidgets==8.0.7
+jupyterlab-git==0.50.2
+ipython==8.18.1
+black==24.1.1
+isort==5.13.2
+
+# JupyterLab Extensions
+jupyterlab-execute-time==3.1.1
+jupyterlab-spellchecker==0.8.4
+
+# Performance Optimization
+numba==0.57.1
+dask[complete]==2023.7.1
+
+# System Monitoring
+psutil==5.9.5 
